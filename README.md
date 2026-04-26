@@ -73,7 +73,7 @@ The Unix socket is local-only. Mole bridges it over TCP so you can run `amdinfer
 
 ### Setup
 
-**On the GPU host** — start `amdinfer_server`, then run mole:
+**On the GPU host** _ start `amdinfer_server`, then run mole:
 
 ```bash
 mole --config amdinfs.yaml
@@ -83,7 +83,7 @@ This starts two forwarders:
 - TCP `:8080` → `localhost:8080` (HTTP API relay)
 - TCP `:9090` → `/tmp/amdinfer.sock` (Unix control socket exposed over TCP)
 
-**On your local machine** — create a local Unix socket that tunnels to the GPU host:
+**On your local machine** _ create a local Unix socket that tunnels to the GPU host:
 
 ```bash
 mole --proto unix-proxy --from /tmp/amdinfer.sock --to <gpu-host>:9090
@@ -123,7 +123,7 @@ rules:
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `--proto` | — | Mode: `tcp`, `udp`, `unix-server`, `unix-proxy` |
+| `--proto` | ፟ | Mode: `tcp`, `udp`, `unix-server`, `unix-proxy` |
 | `--from` | *(required)* | Local port number, or Unix socket path (`unix-proxy`) |
 | `--to` | *(required)* | Remote `host:port`, or Unix socket path (`unix-server`) |
-| `--config` | — | Path to YAML config file (runs all rules concurrently) |
+| `--config` | ፟ | Path to YAML config file (runs all rules concurrently) |
