@@ -15,8 +15,8 @@ mole --config <file.yaml>
 |------|-------------|
 | `tcp` | Forward TCP connections from a local port to `host:port` |
 | `udp` | Forward UDP packets from a local port to `host:port` |
-| `unix-server` | **GPU host side** — accept TCP on `--from` port, pipe into Unix socket `--to` |
-| `unix-proxy` | **Local machine side** — create Unix socket `--from`, tunnel to TCP `--to` |
+| `unix-server` | **GPU host side** - accept TCP on `--from` port, pipe into Unix socket `--to` |
+| `unix-proxy` | **Local machine side** - create Unix socket `--from`, tunnel to TCP `--to` |
 
 ### Examples
 
