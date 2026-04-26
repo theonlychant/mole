@@ -1,0 +1,34 @@
+# mole config for AMD-Native Inference Stack (AMD-NFS)
+# https://github.com/theonlychant/AMD-NFS
+#
+# Run this on the GPU host:
+#   mole --config amdinfs.yaml
+#
+# What it does:
+#   1. Forward TCP :8080 -> localhost:8080  (HTTP inference API, already bound by amdinfer_server)
+#      This rule is only needed if you want mole to act as the public-facing listener
+#      (e.g. amdinfer_server binds 127.0.0.1 and mole exposes it on 0.0.0.0).
+#      If amdinfer_server already binds 0.0.0.0:8080 you can remove this rule.
+#
+#   2. unix-server on TCP :9090 -> /tmp/amdinfer.sock
+#      Exposes the amdinfer_server Unix control socket over TCP so that your local
+#      machine can reach it through mole (see unix-proxy rule on the client side).
+#
+# Then on your LOCAL machine run:
+#   mole --proto unix-proxy --from /tmp/amdinfer.sock --to <gpu-host>:9090
+#
+# Now amdinfer_ctl works transparently on your local machine:
+#   amdinfer_ctl -cmd ping
+#   amdinfer_ctl -cmd boost -mode fastmath
+#   amdinfer_ctl -cmd status
+
+rules:
+  # Inference HTTP API
+  - proto: tcp
+    from: "8080"
+    to: localhost:8080
+
+  # Unix control socket exposed as TCP (run on GPU host)
+  - proto: unix-server
+    from: "9090"
+    to: /tmp/amdinfer.sock
